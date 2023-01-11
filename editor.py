@@ -8,8 +8,13 @@ pathOut = '/editedImgs' # folder for edited imgs
 for filename in os.listdir(path):
     img = Image.open(f"{path}/{filename}")
 
-    # apply edit
+    # apply edit, .convert('L') = blacknwhite
     edit = img.filter(ImageFilter.SHARPEN).convert('L') #.rotate(-90)
+
+    # contrast
+    factor = 1.5
+    enhancer = ImageEnhance.Contrast(edit)
+    edit = enhancer.enhance(factor)
 
     clean_name = os.path.splitext(filename)[0]
 
